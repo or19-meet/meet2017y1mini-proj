@@ -1,3 +1,78 @@
+def up():
+    global direction
+    direction=UP
+    print("you pressed the up key!")
+
+def left():
+    global direction
+    direction=LEFT
+    print("you pressed the left key!")
+
+def down():
+    global direction
+    direction=DOWN
+    print("you pressed the down key!")
+    
+def right():
+    global direction
+    direction=RIGHT
+    print("you pressed the right key!")
+
+def move_snake():
+    my_pos=snake.pos()
+    x_pos= my_pos[0]
+    y_pos=my_pos[1]
+
+    if snake.pos() in food_pos:
+        food_ind=food_pos.index(snake.pos())
+        food.clearstamp(food_stamps[food_ind])
+        food_pos.pop(food_ind)
+        food_stamps.pop(food_ind)
+        print("you have eaten the food!")
+        turtle.ontimer(move_snake, TIME_STEP)
+        
+    if direction==RIGHT:
+        snake.goto(x_pos+SQUARE_SIZE, y_pos)
+        print("you moved RIGHT!")
+    elif direction==LEFT:
+        snake.goto(x_pos - SQUARE_SIZE, y_pos)
+        print("you moved LEFT!")
+    elif direction==UP:
+        snake.goto(x_pos, y_pos+SQUARE_SIZE)
+        print("you moved UP!")
+    elif direction== DOWN:
+        snake.goto(x_pos, y_pos-SQUARE_SIZE)
+        print("you moved DOWN!")
+    
+    
+    my_pos=snake.pos()
+    pos_list.append(my_pos)
+    new_stamp=snake.stamp()
+    stamp_list.append(new_stamp)
+    old_stamp=stamp_list.pop(0)
+    snake.clearstamp(old_stamp)
+    pos_list.pop(0)
+    new_pos = snake.pos()
+    new_x_pos = new_pos[0]
+    new_y_pos = new_pos[1]
+    if new_x_pos >= RIGHT_EDGE:
+        print("You hit the right edge! Game over!")
+        quit()
+
+    if new_x_pos <= LEFT_EDGE:
+        print("You hit the left edge! Game over!")
+        quit()
+
+    if new_y_pos <= DOWN_EDGE:
+        print("You hit the down edge! Game over!")
+        quit()
+
+    if new_y_pos >= UP_EDGE:
+        print("You hit the up edge! Game over!")
+        quit()
+    turtle.ontimer(move_snake, TIME_STEP)
+###############################################################
+
 import turtle
 import random
 
@@ -39,38 +114,20 @@ for i in range (START_LENGTH):
 UP_ARROW = "Up"
 LEFT_ARROW= "Left"
 DOWN_ARROW= "Down"
-RIGHT_ARROW-"Right"
+RIGHT_ARROW="Right"
+
 TIME_STEP= 100
 SPACEBAR = "space"
+
 UP=0
 LEFT= 1
 DOWN=2
 RIGHT=3
-
-direction= UP
-def up():
-    global direction
-    direction=UP
-    move_snake()
-    print("you pressed the up key!")
-
-def left():
-    global direction
-    direction=LEFT
-    move_snake()
-    print("you pressed the left key!")
-
-def down():
-    global direction
-    direction=DOWN
-    move_snake()
-    print("you pressed the down key!")
-    
-def right():
-    global direction
-    direction=RIGHT
-    move_snake()
-    print("you pressed the right key!")
+direction = UP
+UP_EDGE= 250
+DOWN_EDGE= -250
+RIGHT_EDGE= 400
+LEFT_EDGE= -400
 
 turtle.onkeypress(up, UP_ARROW)
 turtle.onkeypress(right, RIGHT_ARROW)
@@ -78,30 +135,19 @@ turtle.onkeypress(left, LEFT_ARROW)
 turtle.onkeypress(down, DOWN_ARROW)
 turtle.listen()
 
-def move_snake():
-    my_pos=snake.pos()
-    x_pos= my_pos[0]
-    y_pos=my_pos[1]
+move_snake()
 
-    if direction==RIGHT
-        snake.goto(x_pos+SQUARE_SIZE, y_pos)
-        print("you moved RIGHT!")
-    elif direction==LEFT:
-        snake.goto(x_pos - SQUARE_SIZE, y_pos)
-        print("you moved LEFT!")
-    elif direction==UP
-        snake.goto(x_pos, y_pos+SQUARE_SIZE)
-        print("you moved UP!")
-    elif direction== DOWN
-        snake.goto(x_pos, y_pos-SQUARE_SIZE)
+turtle.register_shape("trash.gif")
+food= turtle.clone()
 
-    my_pos=snake.pos()
-    pos_list.append(my_pos)
-    new_stamp=snake.stamp()
-    stamp_list.append(new_stamp)
-    old_stamp=stamp_list.pop(0)
-    snake.clearstamp(old_stamp)
-    pop_list(0)
-        
-    
-    
+food_pos = [ (100,100) , (-100,100), (-100,-100), (100,-100)]
+food_stamps=[]
+
+for this_food_pos in food_pos :
+    food.goto(this_food_pos)
+    my_food_stamp=food.stamp()
+    food_stamps.append(my_food_stamp)
+
+
+turtle.mainloop()
+
