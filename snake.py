@@ -1,5 +1,4 @@
-
-    import turtle
+import turtle
 import random
 
 turtle.tracer(1,0)
@@ -49,5 +48,60 @@ DOWN=2
 RIGHT=3
 
 direction= UP
-
 def up():
+    global direction
+    direction=UP
+    move_snake()
+    print("you pressed the up key!")
+
+def left():
+    global direction
+    direction=LEFT
+    move_snake()
+    print("you pressed the left key!")
+
+def down():
+    global direction
+    direction=DOWN
+    move_snake()
+    print("you pressed the down key!")
+    
+def right():
+    global direction
+    direction=RIGHT
+    move_snake()
+    print("you pressed the right key!")
+
+turtle.onkeypress(up, UP_ARROW)
+turtle.onkeypress(right, RIGHT_ARROW)
+turtle.onkeypress(left, LEFT_ARROW)
+turtle.onkeypress(down, DOWN_ARROW)
+turtle.listen()
+
+def move_snake():
+    my_pos=snake.pos()
+    x_pos= my_pos[0]
+    y_pos=my_pos[1]
+
+    if direction==RIGHT
+        snake.goto(x_pos+SQUARE_SIZE, y_pos)
+        print("you moved RIGHT!")
+    elif direction==LEFT:
+        snake.goto(x_pos - SQUARE_SIZE, y_pos)
+        print("you moved LEFT!")
+    elif direction==UP
+        snake.goto(x_pos, y_pos+SQUARE_SIZE)
+        print("you moved UP!")
+    elif direction== DOWN
+        snake.goto(x_pos, y_pos-SQUARE_SIZE)
+
+    my_pos=snake.pos()
+    pos_list.append(my_pos)
+    new_stamp=snake.stamp()
+    stamp_list.append(new_stamp)
+    old_stamp=stamp_list.pop(0)
+    snake.clearstamp(old_stamp)
+    pop_list(0)
+        
+    
+    
