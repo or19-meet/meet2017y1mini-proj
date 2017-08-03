@@ -23,11 +23,17 @@ def move_snake():
     x_pos= my_pos[0]
     y_pos=my_pos[1]
 
+    if snake.pos() in pos_list[0:-1]:
+        quit()
+
+
     if snake.pos() in food_pos:
         food_ind=food_pos.index(snake.pos())
         food.clearstamp(food_stamps[food_ind])
         food_pos.pop(food_ind)
         food_stamps.pop(food_ind)
+        new_stamp=snake.stamp()
+        stamp_list.append(new_stamp)
         print("you have eaten the food!")
         make_food()
     
@@ -56,6 +62,8 @@ def move_snake():
     new_pos = snake.pos()
     new_x_pos = new_pos[0]
     new_y_pos = new_pos[1]
+
+        
     if new_x_pos >= RIGHT_EDGE:
         print("You hit the right edge! Game over!")
         quit()
@@ -72,17 +80,18 @@ def move_snake():
         print("You hit the up edge! Game over!")
         quit()
     turtle.ontimer(move_snake, TIME_STEP)
+
 ###############################################################
 
 import turtle
 import random
+
 
 turtle.tracer(1,0)
 
 SIZE_X=800
 SIZE_Y=500
 turtle.setup(SIZE_X, SIZE_Y)
-
 turtle.penup()
 
 SQUARE_SIZE=20
@@ -111,6 +120,9 @@ for i in range (START_LENGTH):
     
     stamp1=snake.stamp()
     stamp_list.append(stamp1)
+
+    if snake.pos in pos_list[0:54568486]:
+        quit()
 
 UP_ARROW = "Up"
 LEFT_ARROW= "Left"
@@ -141,7 +153,7 @@ move_snake()
 turtle.register_shape("trash.gif")
 food= turtle.clone()
 
-food_pos = [(100,100) , (-100,100), (-100,-100), (100,-100)]
+food_pos = [(100,-100)]
 food_stamps=[]
 
     
@@ -153,10 +165,10 @@ for this_food_pos in food_pos :
 
 turtle.listen()
 def make_food():
-    min_x=-int(SIZE_X/2/SQUARE_SIZE+1)
-    max_x=int(SIZE_X/2/SQUARE_SIZE-1)
-    min_y=-int(SIZE_Y/2/SQUARE_SIZE+1)
-    max_y=int(SIZE_Y/2/SQUARE_SIZE-1)
+    min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
+    max_x=int(SIZE_X/2/SQUARE_SIZE)-1
+    min_y=-int(SIZE_Y/2/SQUARE_SIZE)+1
+    max_y=int(SIZE_Y/2/SQUARE_SIZE)-1
     food_x=random.randint(min_x,max_x)*SQUARE_SIZE
     food_y=random.randint(min_y,max_y)*SQUARE_SIZE
 
@@ -165,6 +177,16 @@ def make_food():
     foodstaamps=food.stamp()
     food_stamps.append(foodstaamps)
 
+
+EDGES=turtle.clone
+turtle.penup()
+turtle.goto(-385,230)
+turtle.pendown()
+turtle.goto(385,230)
+turtle.goto(385,-230)
+turtle.goto(-385,-230)
+turtle.goto(-385,230)
+turtle.goto(-385,-230)
 
 
 turtle.mainloop()
