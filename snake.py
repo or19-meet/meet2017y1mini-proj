@@ -10,9 +10,7 @@ turtle.setup(SIZE_X, SIZE_Y)
 turtle.penup()
 SQUARE_SIZE = 20
 
-
-
-START_LENGTH = 2
+START_LENGTH = 6
 
 pos_list = []
 stamp_list = []
@@ -53,7 +51,6 @@ DOWN=2
 RIGHT=3
 
 
-
 direction= UP
 UP_EDGE=250
 DOWN_EDGE=-250
@@ -61,17 +58,12 @@ RIGHT_EDGE=400
 LEFT_EDGE=-400
 
 
-
-
-
-
 def up():
     global direction
     direction=UP
     print("you pressed the up key!")
     
-    
-               
+           
 
 def down():
     global direction
@@ -188,28 +180,15 @@ def move_snake():
 move_snake()
 
 
-turtle.register_shape("trash.gif")
 food=turtle.clone()
 food.shape("arrow")
 
 
 
-food_pos=[(100,100)]
+food_pos=[(-100,100)]
 food_stamps=[]
 for this_food_pos in food_pos:
     food.goto(this_food_pos[0],this_food_pos[1])
     stamp_id = food.stamp()
     food_stamps.append(stamp_id)
     
-
-
-
-
-        
-    
-
-        
-        
-        
-        
-        
